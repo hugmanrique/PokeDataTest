@@ -2,7 +2,6 @@ package me.hugmanrique.pokedatatest;
 
 import me.hugmanrique.pokedata.utils.HeaderNames;
 import me.hugmanrique.pokedata.utils.PokeText;
-import me.hugmanrique.pokedata.utils.ROM;
 import me.hugmanrique.pokedata.utils.ROMLoader;
 
 import javax.swing.*;
@@ -40,10 +39,26 @@ public class PokeDataTest {
             System.exit(1);
         }
 
+        String print = String.format(
+            "Loaded %s - %s created by %s",
+            rom.getGameCode(),
+            rom.getGameText(),
+            rom.getGameCreatorId()
+        );
+
+        System.out.println(print);
+
         // Perform tests and data visualization here
     }
 
     private BaseROM fileLoader() {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            // Don't exit, we can still use Java's UI
+            e.printStackTrace();
+        }
+
         FileFilter filter = new FileNameExtensionFilter("GBA ROM", "gba", "bin");
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileFilter(filter);
