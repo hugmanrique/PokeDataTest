@@ -1,6 +1,7 @@
 package me.hugmanrique.pokedatatest;
 
 import me.hugmanrique.pokedata.utils.HeaderNames;
+import me.hugmanrique.pokedata.utils.PokeText;
 import me.hugmanrique.pokedata.utils.ROM;
 import me.hugmanrique.pokedata.utils.ROMLoader;
 
@@ -23,9 +24,23 @@ public class PokeDataTest {
     private PokeDataTest(String[] args) {
         HeaderNames.updateNames();
 
+        try {
+            PokeText.loadFromJar();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+
         // TODO implement direct file loading through args
 
-        fileLoader();
+        BaseROM rom = fileLoader();
+
+        if (rom == null) {
+            System.exit(1);
+        }
+
+        // Perform tests and data visualization here
     }
 
     private BaseROM fileLoader() {
