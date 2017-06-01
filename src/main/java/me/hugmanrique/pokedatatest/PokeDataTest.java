@@ -122,12 +122,13 @@ public class PokeDataTest {
     }
 
     private void saveItemImage() {
-        Item item = Item.load(rom, data, 0);
+        // Good rod
+        Item item = Item.load(rom, data, 263);
 
         ROMImage image = item.getImage(rom, data);
 
         BufferedImage bufferedImage = image.toBufferedImage(true);
-        File file = new File(FileLoader.getJAR_FOLDER(), "item.png");
+        File file = new File(FileLoader.JAR_FOLDER, "item.png");
 
         try {
             if (!file.exists()) {

@@ -18,8 +18,7 @@ import java.security.ProtectionDomain;
  * @since 28/05/2017
  */
 public class FileLoader {
-    @Getter
-    private static final File JAR_FOLDER = getJarFolder();
+    public static final File JAR_FOLDER = getJarFolder();
 
     public static ReadableROM load() {
         try {
