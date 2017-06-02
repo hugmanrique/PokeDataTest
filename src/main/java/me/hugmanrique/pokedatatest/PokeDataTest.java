@@ -1,16 +1,16 @@
 package me.hugmanrique.pokedatatest;
 
+import me.hugmanrique.pokedata.attacks.Attack;
 import me.hugmanrique.pokedata.graphics.ROMImage;
 import me.hugmanrique.pokedata.items.Item;
 import me.hugmanrique.pokedata.loaders.ROMData;
-import me.hugmanrique.pokedata.attacks.Attack;
 import me.hugmanrique.pokedata.pokedex.Pokedex;
 import me.hugmanrique.pokedata.pokedex.PokemonBaseStats;
 import me.hugmanrique.pokedata.pokedex.ev.Evolution;
 import me.hugmanrique.pokedata.pokedex.ev.EvolutionData;
+import me.hugmanrique.pokedata.roms.ReadableROM;
 import me.hugmanrique.pokedata.utils.HeaderNames;
 import me.hugmanrique.pokedata.utils.PokeText;
-import me.hugmanrique.pokedata.roms.ReadableROM;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -71,7 +71,7 @@ public class PokeDataTest {
 
     // Perform tests and data visualization here
     private void performTests() {
-        saveItemImage();
+        savePokeImages();
     }
 
     private void printPokedex() {
@@ -127,21 +127,36 @@ public class PokeDataTest {
 
         ROMImage image = item.getImage(rom, data);
 
-        BufferedImage bufferedImage = image.toBufferedImage(true);
-        File file = new File(FileLoader.JAR_FOLDER, "item.png");
+        BufferedImage bufferedImage = image.toBufferedImage();
+        saveImage(bufferedImage, "item");
+    }
+
+    private void savePokeImages() {
+        // Bulbasaur
+        Pokedex pokedex = Pokedex.load(rom, data, 1);
+
+        ROMImage frontNormal = pokedex.getFrontImage(rom, data, false);
+        ROMImage frontShiny = pokedex.getFrontImage(rom, data, true);
+        ROMImage backNormal = pokedex.getBackImage(rom, data, false);
+        ROMImage backShiny = pokedex.getBackImage(rom, data, true);
+
+        saveImage(frontNormal.toBufferedImage(), "frontNormal");
+        saveImage(frontShiny.toBufferedImage(), "frontShiny");
+        saveImage(backNormal.toBufferedImage(), "backNormal");
+        saveImage(backShiny.toBufferedImage(), "backShiny");
+    }
+
+    private void saveImage(BufferedImage image, String filename) {
+        File file = new File(FileLoader.JAR_FOLDER, filename + ".png");
 
         try {
             if (!file.exists()) {
                 file.createNewFile();
             }
 
-            ImageIO.write(bufferedImage, "png", file);
+            ImageIO.write(image, "png", file);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-
-
-
 }
