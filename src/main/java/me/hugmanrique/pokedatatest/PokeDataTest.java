@@ -140,12 +140,14 @@ public class PokeDataTest {
         ROMImage backNormal = pokedex.getBackImage(rom, data, false);
         ROMImage backShiny = pokedex.getBackImage(rom, data, true);
         ROMImage iconPic = pokedex.getIconImage(rom, data);
+        ROMImage footPrint = pokedex.getFootPrint(rom, data, true);
 
         saveImage(frontNormal.toBufferedImage(), "frontNormal");
         saveImage(frontShiny.toBufferedImage(), "frontShiny");
         saveImage(backNormal.toBufferedImage(), "backNormal");
         saveImage(backShiny.toBufferedImage(), "backShiny");
         saveImage(iconPic.toBufferedImage(), "icon");
+        saveImage(footPrint.toBufferedImage(), "footPrint");
     }
 
     private void saveImage(BufferedImage image, String filename) {
