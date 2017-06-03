@@ -9,6 +9,7 @@ import me.hugmanrique.pokedata.pokedex.PokemonBaseStats;
 import me.hugmanrique.pokedata.pokedex.ev.Evolution;
 import me.hugmanrique.pokedata.pokedex.ev.EvolutionData;
 import me.hugmanrique.pokedata.roms.ReadableROM;
+import me.hugmanrique.pokedata.trainers.Trainer;
 import me.hugmanrique.pokedata.utils.HeaderNames;
 import me.hugmanrique.pokedata.utils.PokeText;
 
@@ -71,7 +72,7 @@ public class PokeDataTest {
 
     // Perform tests and data visualization here
     private void performTests() {
-        savePokeImages();
+        loadTrainer();
     }
 
     private void printPokedex() {
@@ -162,5 +163,15 @@ public class PokeDataTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void loadTrainer() {
+        Trainer trainer = Trainer.load(rom, data, 25);
+
+        System.out.println(trainer);
+
+        ROMImage trainerFront = trainer.getImage(rom, data);
+        saveImage(trainerFront.toBufferedImage(), "trainerFront");
+
     }
 }
