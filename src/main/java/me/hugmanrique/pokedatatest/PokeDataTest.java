@@ -4,6 +4,7 @@ import me.hugmanrique.pokedata.attacks.Attack;
 import me.hugmanrique.pokedata.graphics.ROMImage;
 import me.hugmanrique.pokedata.items.Item;
 import me.hugmanrique.pokedata.loaders.ROMData;
+import me.hugmanrique.pokedata.maps.Map;
 import me.hugmanrique.pokedata.pokedex.Pokedex;
 import me.hugmanrique.pokedata.pokedex.PokemonBaseStats;
 import me.hugmanrique.pokedata.pokedex.ev.Evolution;
@@ -72,7 +73,8 @@ public class PokeDataTest {
 
     // Perform tests and data visualization here
     private void performTests() {
-        loadTrainer();
+        //loadMap();
+        printPokedex();
     }
 
     private void printPokedex() {
@@ -80,6 +82,7 @@ public class PokeDataTest {
             Pokedex pokedex = Pokedex.load(rom, data, i);
 
             System.out.println(pokedex);
+            System.out.println(pokedex.getName());
             System.out.println(pokedex.getDesc1(rom));
         }
     }
@@ -172,6 +175,12 @@ public class PokeDataTest {
 
         ROMImage trainerFront = trainer.getImage(rom, data);
         saveImage(trainerFront.toBufferedImage(), "trainerFront");
+    }
 
+    private void loadMap() {
+        // Pallet Town
+        Map map = Map.load(rom, data, 3, 0);
+
+        System.out.println(map);
     }
 }
