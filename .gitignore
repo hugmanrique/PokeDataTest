@@ -4,3 +4,4 @@ out
 target
 dependency-reduced-pom.xml
 *.iml
+bash.exe.stackdump
