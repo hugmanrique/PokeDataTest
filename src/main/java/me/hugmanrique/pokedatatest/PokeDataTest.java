@@ -10,12 +10,15 @@ import me.hugmanrique.pokedata.pokedex.PokemonBaseStats;
 import me.hugmanrique.pokedata.pokedex.ev.Evolution;
 import me.hugmanrique.pokedata.pokedex.ev.EvolutionData;
 import me.hugmanrique.pokedata.roms.ReadableROM;
+import me.hugmanrique.pokedata.tiles.TilesetCache;
 import me.hugmanrique.pokedata.trainers.Trainer;
 import me.hugmanrique.pokedata.utils.HeaderNames;
 import me.hugmanrique.pokedata.utils.PokeText;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -73,8 +76,7 @@ public class PokeDataTest {
 
     // Perform tests and data visualization here
     private void performTests() {
-        //loadMap();
-        printPokedex();
+        loadMap();
     }
 
     private void printPokedex() {
@@ -154,7 +156,7 @@ public class PokeDataTest {
         saveImage(footPrint.toBufferedImage(), "footPrint");
     }
 
-    private void saveImage(BufferedImage image, String filename) {
+    private void saveImage(RenderedImage image, String filename) {
         File file = new File(FileLoader.JAR_FOLDER, filename + ".png");
 
         try {
@@ -182,5 +184,10 @@ public class PokeDataTest {
         Map map = Map.load(rom, data, 3, 0);
 
         System.out.println(map);
+
+        //System.out.println(map.getTileData());
+        BufferedImage image = map.getTileData().drawTileset(rom, map.getData());
+
+        saveImage(image, "tileset.png");
     }
 }
